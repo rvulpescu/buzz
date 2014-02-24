@@ -614,6 +614,13 @@
 
                 source.src = src;
 
+                //Add support to track individual source errors
+                source.addEventListener('error', function(ev) {
+                    //Dispatch error to the html audio object
+                    var evt = new CustomEvent('srcerror', { 'detail': this });
+                    sound.dispatchEvent( evt );
+                }); 
+
                 if (buzz.types[getExt(src)]) {
                     source.type = buzz.types[getExt(src)];
                 }
